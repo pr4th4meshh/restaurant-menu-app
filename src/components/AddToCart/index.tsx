@@ -2,8 +2,20 @@ import { Button } from "antd"
 import { useSelector } from "react-redux"
 import { totalCartItems } from "../../utils/globalUtils"
 
-const AddToCartButton = ({ onRemoveItem, onAddItem }: any) => {
-  const cartItems = useSelector((state) => state.cart?.items)
+interface ButtonProps {
+  onRemoveItem: () => void
+  onAddItem: () => void
+}
+
+interface StateProps {
+  state: string
+  cart: {
+    items: []
+  }
+}
+
+const AddToCartButton = ({ onRemoveItem, onAddItem }: ButtonProps) => {
+  const cartItems = useSelector((state: StateProps) => state.cart?.items)
   const totalQuantity = totalCartItems({ cartItems })
 
   return (

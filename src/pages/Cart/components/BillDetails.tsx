@@ -2,9 +2,16 @@ import { List } from "antd"
 import { useSelector } from "react-redux"
 import { calculateTotalPrice, gstConversion } from "../../../utils/globalUtils"
 
+interface StateProps {
+  state: string
+  cart: {
+    items: []
+  }
+}
+
 const BillDetails = () => {
-  const cartItems = useSelector((state) => state.cart?.items)
-  const totalPrice = cartItems.reduce((total, item) => {
+  const cartItems = useSelector((state: StateProps) => state.cart?.items)
+  const totalPrice = cartItems.reduce((total, item: {price: number, quantity: number}) => {
     return total + item.price * item.quantity
   }, 0)
 

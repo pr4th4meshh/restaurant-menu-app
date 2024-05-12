@@ -8,9 +8,14 @@ interface ListComponentProps {
   itemTitle: (item: string) => string
   itemPrice: (item: string) => string
   itemImageSource: (item: string) => string | undefined
+  itemDescription:(item: string) => string
 }
 
-type Item = string
+interface ItemProps {
+  id: string
+  href: string
+  category: string
+}
 
 const ListComponent = ({
   isLoading,
@@ -19,16 +24,11 @@ const ListComponent = ({
   itemPrice,
   itemImageSource,
   itemDescription
-}: any) => {
+}: ListComponentProps) => {
   const [selectedItem, setSelectedItem] = useState(null)
-  const [open, setOpen] = useState(false)
 
-  const handleItemClick = (item: Item) => {
+  const handleItemClick = (item: ItemProps) => {
     setSelectedItem(item)
-  }
-
-  const handleOpen = () => {
-    setOpen(true)
   }
 
   const handleCloseDrawer = () => {
@@ -91,7 +91,6 @@ const ListComponent = ({
             {selectedItem &&
               selectedItem.id === item.id && (
                 <ListItemDrawer
-                  open={handleOpen}
                   item={selectedItem}
                   onClose={handleCloseDrawer}
                 />

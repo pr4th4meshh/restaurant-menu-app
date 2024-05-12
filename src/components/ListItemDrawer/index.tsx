@@ -5,7 +5,19 @@ import { useDispatch } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../../redux/slices/cartSlice";
 import { message } from 'antd';
 
-const ListItemDrawer = ({ item, onClose, open }: any) => {
+interface ItemProps {
+  image: string
+  title: string
+  price: number
+  description: string
+}
+
+interface ListItemDrawerProps{
+  item: ItemProps
+  onClose: () => void
+}
+
+const ListItemDrawer = ({ item, onClose }: ListItemDrawerProps) => {
   const dispatch = useDispatch();
 
   const [messageApi, contextHolder] = message.useMessage()
@@ -36,7 +48,7 @@ const ListItemDrawer = ({ item, onClose, open }: any) => {
         placement="bottom"
         closable
         onClose={onClose}
-        open={open}
+        open
         key="bottom"
       >
         <Image

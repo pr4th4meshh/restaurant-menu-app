@@ -4,24 +4,37 @@ import Suggestions from "./components/Suggestions"
 import BillDetails from "./components/BillDetails"
 import ReviewOrder from "./components/ReviewOrder"
 
-const Cart = () => {
-  const cartItems = useSelector((state) => state.cart?.items)
+interface StateProps {
+  state: string
+  cart: {
+    items: []
+  }
+}
 
-  const getItemQuantity = (itemId) => {
-    const item = cartItems.find((item) => item.id === itemId)
-    return item ? item.quantity : 0 
+interface ItemProps {
+  id: number
+  price: number
+  title: (title: string) => string
+}
+
+const Cart = () => {
+  const cartItems = useSelector((state: StateProps) => state.cart?.items)
+
+  const getItemQuantity = (itemId: number) => {
+    const item = cartItems.find((item: ItemProps) => item.id === itemId)
+    return item ? item.quantity : 0
   }
 
-  const individualItemPrice = (item) => {
+  const individualItemPrice = (item: ItemProps) => {
     return item.price * getItemQuantity(item.id)
   }
 
   return (
     <>
       <div className="px-3 border-b">
-        {cartItems?.map((menu: any) => (
+        {cartItems?.map((menu) => (
           <CartList
-          key={(item) => item.id}
+            id={(item) => item.id}
             itemTitle={(item) => item.title}
             itemQuantity={(item) => getItemQuantity(item.id)}
             itemTotalPrice={(item) => individualItemPrice(item)}

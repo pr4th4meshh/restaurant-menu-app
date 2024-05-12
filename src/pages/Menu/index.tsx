@@ -8,17 +8,29 @@ import {
 import InfoCard from "./components/InfoCard"
 import { useState } from "react"
 
-type Item = string
+interface RestaurantInfo {
+  restName: string
+  ratings: string
+  noOfRatings: string
+  basicAmountToSpend: number
+  cuisine: string
+}
+
+type Category = string
+
+interface Item {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  category: string
+}
 
 const Menu = () => {
-  const { data: menu, error, isLoading } = useGetMenuQuery()
-  const {
-    data: menuCategory,
-    error: categoryError,
-    isLoading: categoryLoading,
-  } = useGetMenuByCategoriesQuery()
+  const { data: menu, isLoading } = useGetMenuQuery()
+  const { data: menuCategory } = useGetMenuByCategoriesQuery()
 
-  const restaurantInfo = [
+  const restaurantInfo: RestaurantInfo[] = [
     {
       restName: "Prathamesh's Restaurant",
       ratings: "4.7 / 5",
@@ -27,9 +39,9 @@ const Menu = () => {
       cuisine: "North Indian",
     },
   ]
-  const [selectedCategory, setSelectedCategory] = useState()
+  const [, setSelectedCategory] = useState<string | undefined>()
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: Category) => {
     setSelectedCategory(category)
   }
 
@@ -54,24 +66,24 @@ const Menu = () => {
       <ul>
         {/* <h1 className="py-3 px-6 text-xl font-bold">RECOMMENDED</h1> */}
         {menuCategory?.map((category) => (
-          <div id={category} key={category}>
+          <div key={Math.random() * Infinity}>
             <h2 className="py-3 px-6 text-xl font-bold">
-              {category.charAt(0).toUpperCase() + category.slice(1)} (
+              {category?.charAt(0).toUpperCase() + category?.slice(1)} (
               {menu?.filter((item) => item.category === category).length})
             </h2>
             <ListComponent
               category={category}
-              key={category}
+              // key={category}
               loading={isLoading}
               dataSource={menu?.filter((item) => item.category === category)}
-              itemTitle={(item: Item) => item.title}
-              itemPrice={(item: Item) => item.price}
-              itemDescription={(item: Item) =>
+              itemTitle={(item) => item.title}
+              itemPrice={(item) => item.price}
+              itemDescription={(item) =>
                 item.description.length > 60
                   ? item.description.slice(0, 60)
                   : item.description
               }
-              itemImageSource={(item: Item) => item.image}
+              itemImageSource={(item) => item.image}
               isLoading={isLoading}
             />
           </div>

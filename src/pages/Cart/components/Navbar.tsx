@@ -2,8 +2,15 @@ import { LeftOutlined } from "@ant-design/icons"
 import { useSelector } from "react-redux"
 import { totalCartItems } from "../../../utils/globalUtils"
 
+interface StateProps {
+  state: string
+  cart: {
+    items: []
+  }
+}
+
 const Cart_Navbar = () => {
-  const cartItems = useSelector((state) => state.cart?.items)
+  const cartItems = useSelector((state: StateProps) => state.cart?.items)
   const totalQuantity = totalCartItems({ cartItems })
   return (
     <div className="h-[5vh] flex flex-row px-8 py-7 items-center">

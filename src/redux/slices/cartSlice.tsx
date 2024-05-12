@@ -1,28 +1,44 @@
-// 1. Define the cart slice in your Redux store
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
+
+interface CartItem {
+  id: string
+  name: string
+  price: number
+  quantity: number
+}
+
+interface CartState {
+  items: CartItem[]
+}
+
+const initialState: CartState = {
+  items: [],
+}
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    items: [],
-  },
+  initialState,
   reducers: {
     addItemToCart: (state, action) => {
-      const { item, quantity } = action.payload;
-      const existingItem = state.items.find((cartItem) => cartItem.id === item.id);
+      const { item, quantity } = action.payload
+      const existingItem = state.items.find(
+        (cartItem) => cartItem.id === item.id
+      )
       if (existingItem) {
-        existingItem.quantity += quantity;
+        existingItem.quantity += quantity
       } else {
-        state.items.push({ ...item, quantity });
+        state.items.push({ ...item, quantity })
       }
     },
     removeItemFromCart: (state, action) => {
-      const { item, quantity } = action.payload;
-      const existingItem = state.items.find((cartItem) => cartItem.id === item.id);
+      const { item, quantity } = action.payload
+      const existingItem = state.items.find(
+        (cartItem) => cartItem.id === item.id
+      )
       if (existingItem) {
-        existingItem.quantity -= quantity;
+        existingItem.quantity -= quantity
       } else {
-        state.items.push({ ...item, quantity });
+        state.items.push({ ...item, quantity })
       }
     },
 
@@ -31,15 +47,16 @@ const cartSlice = createSlice({
     //   state.items = state.items.filter((item) => item.id !== itemId);
     // },
     updateCartItemQuantity: (state, action) => {
-      const { itemId, quantity } = action.payload;
-      const cartItem = state.items.find((item) => item.id === itemId);
+      const { itemId, quantity } = action.payload
+      const cartItem = state.items.find((item) => item.id === itemId)
       if (cartItem) {
-        cartItem.quantity = quantity;
+        cartItem.quantity = quantity
       }
     },
   },
-});
+})
 
-export const { addItemToCart, removeItemFromCart, updateCartItemQuantity } = cartSlice.actions;
+export const { addItemToCart, removeItemFromCart, updateCartItemQuantity } =
+  cartSlice.actions
 
-export default cartSlice.reducer;
+export default cartSlice.reducer

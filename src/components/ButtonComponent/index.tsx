@@ -1,7 +1,15 @@
 import { Button } from "antd"
-import React from "react"
+import { SizeType } from "antd/es/config-provider/SizeContext"
 
-const ButtonComponent = ({ title, onClick, icon, className, size }: any) => {
+interface ButtonProps {
+  title: string
+  onClick: () => void
+  icon: string
+  className: string
+  size: SizeType
+}
+
+const ButtonComponent = ({ title, onClick, icon, className, size }: ButtonProps) => {
   return (
     <Button
       onClick={onClick}

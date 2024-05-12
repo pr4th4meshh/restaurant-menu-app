@@ -7,8 +7,15 @@ import { useSelector } from "react-redux"
 import { totalCartItems } from "../../utils/globalUtils"
 import { LeftOutlined } from "@ant-design/icons"
 
+interface StateProps {
+  state: string
+  cart: {
+    items: []
+  }
+}
+
 const Cart_Layout = () => {
-  const cartItems = useSelector((state) => state.cart?.items)
+  const cartItems = useSelector((state: StateProps) => state.cart?.items)
   const totalQuantity = totalCartItems({ cartItems })
 
   return (
