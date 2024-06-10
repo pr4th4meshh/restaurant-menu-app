@@ -17,3 +17,11 @@ export const calculateTotalPrice = (subTotal: number, gstPercentage: number) => 
   const roundedTotalPrice = Math.round(totalPrice * 100) / 100
   return roundedTotalPrice
 }
+
+export const truncateTitle = (title: string) => {
+  return title.split(" ").slice(0,4).join(" ") + "..."
+} 
+
+export const truncateDescription = (description: string) => {
+  return description.split(" ").slice(0, 15).join(" ") + "..."
+}

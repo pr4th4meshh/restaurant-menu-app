@@ -79,9 +79,7 @@ const Menu = () => {
               itemTitle={(item) => item.title}
               itemPrice={(item) => item.price}
               itemDescription={(item) =>
-                item.description.length > 60
-                  ? item.description.slice(0, 60)
-                  : item.description
+                item.description
               }
               itemImageSource={(item) => item.image}
               isLoading={isLoading}

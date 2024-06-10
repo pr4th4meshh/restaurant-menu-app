@@ -1,6 +1,7 @@
 import { Image, List } from "antd"
 import { useState } from "react"
 import ListItemDrawer from "../ListItemDrawer"
+import { truncateTitle, truncateDescription } from "../../utils/globalUtils"
 
 interface ListComponentProps {
   isLoading: boolean
@@ -71,7 +72,7 @@ const ListComponent = ({
               <List.Item.Meta
                 title={
                   <a className="text-lg font-normal" href={item.href}>
-                    {itemTitle(item)}
+                    {truncateTitle(itemTitle(item))}
                   </a>
                 }
                 description={
@@ -82,7 +83,7 @@ const ListComponent = ({
                       </h1>
                     </div>
                     <p className=" text-xs ">
-                     {itemDescription(item)}... <span className="font-semibold text-black">Read more</span>
+                     {truncateDescription(itemDescription(item))}
                     </p>
                   </div>
                 }
