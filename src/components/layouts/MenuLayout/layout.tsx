@@ -1,4 +1,4 @@
-import Menu_Navbar from "../../pages/Menu/components/Navbar"
+import Menu_Navbar from "../../../pages/Menu/components/Navbar"
 import { Outlet } from "react-router-dom"
 import { Content } from "antd/es/layout/layout"
 import { Layout } from "antd"

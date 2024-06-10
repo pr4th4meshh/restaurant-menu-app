@@ -1,6 +1,6 @@
 import { Button, message } from "antd"
 import { useSelector, useDispatch } from "react-redux"
-import { addItemToCart, removeItemFromCart } from "../../redux/slices/cartSlice"
+import { addItemToCart, removeItemFromCart } from "../../../redux/slices/cartSlice"
 
 interface ButtonProps {
   item: {

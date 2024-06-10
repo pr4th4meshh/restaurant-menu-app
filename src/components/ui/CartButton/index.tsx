@@ -2,7 +2,7 @@ import { ShoppingOutlined } from "@ant-design/icons"
 import { FloatButton } from "antd"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { totalCartItems } from "../../utils/globalUtils"
+import { totalCartItems } from "../../../utils/globalUtils"
 
 interface QuantityProps {
   state: string

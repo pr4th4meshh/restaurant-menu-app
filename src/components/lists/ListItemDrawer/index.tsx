@@ -1,5 +1,5 @@
 import { Drawer, Image } from "antd"
-import AddToCartButton from "../AddToCart"
+import AddToCartButton from "../../ui/AddToCart"
 
 interface ItemProps {
   id: string

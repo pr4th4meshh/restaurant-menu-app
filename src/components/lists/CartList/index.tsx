@@ -1,4 +1,4 @@
-import { deleteItemFromCart } from "../../redux/slices/cartSlice"
+import { deleteItemFromCart } from "../../../redux/slices/cartSlice"
 import { List, Popconfirm, message } from "antd"
 import { useDispatch } from "react-redux"
 import type { PopconfirmProps } from "antd"

@@ -2,9 +2,9 @@ import { Route, Routes } from "react-router-dom"
 import Cart from "./pages/Cart"
 import Menu from "./pages/Menu"
 import Home from "./pages/Home"
-import Menu_Layout from "./layouts/MenuLayout/layout"
+import Menu_Layout from "./components/layouts/MenuLayout/layout"
 import Search from "./pages/Search"
-import Cart_Layout from "./layouts/CartLayout/layout"
+import Cart_Layout from "./components/layouts/CartLayout/layout"
 
 function App() {
   const routes = [

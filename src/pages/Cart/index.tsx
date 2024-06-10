@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import CartList from "../../components/CartList"
+import CartList from "../../components/lists/CartList"
 import Suggestions from "./components/Suggestions"
 import BillDetails from "./components/BillDetails"
 import ReviewOrder from "./components/ReviewOrder"

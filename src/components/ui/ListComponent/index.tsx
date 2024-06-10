@@ -1,7 +1,7 @@
 import { Image, List } from "antd"
 import { useState } from "react"
-import ListItemDrawer from "../ListItemDrawer"
-import { truncateTitle, truncateDescription } from "../../utils/globalUtils"
+import ListItemDrawer from "../../lists/ListItemDrawer"
+import { truncateTitle, truncateDescription } from "../../../utils/globalUtils"
 
 interface ListComponentProps {
   isLoading: boolean

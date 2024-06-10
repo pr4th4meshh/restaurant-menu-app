@@ -1,12 +1,13 @@
 import { Anchor } from "antd"
-import CartButton from "../../components/CartButton"
-import ListComponent from "../../components/ListComponent"
+import CartButton from "../../components/ui/CartButton"
+import ListComponent from "../../components/ui/ListComponent"
 import {
   useGetMenuByCategoriesQuery,
   useGetMenuQuery,
 } from "../../redux/slices/menuSlice"
 import InfoCard from "./components/InfoCard"
 import { useState } from "react"
+import { Loading3QuartersOutlined } from "@ant-design/icons"
 
 interface RestaurantInfo {
   restName: string
@@ -17,14 +18,6 @@ interface RestaurantInfo {
 }
 
 type Category = string
-
-interface Item {
-  id: string
-  name: string
-  price: number
-  quantity: number
-  category: string
-}
 
 const Menu = () => {
   const { data: menu, isLoading } = useGetMenuQuery()
@@ -47,7 +40,8 @@ const Menu = () => {
 
   const cartItemCount = 4
   return (
-    <div className="h-[100vh]">
+    <>
+    { isLoading ? <div className="h-[100vh] flex justify-center items-center"><Loading3QuartersOutlined className=" animate-spin text-5xl text-orange-500 " /></div> : <div className="h-[100vh]">
       {/* RESTAURANT DETAILS DIV */}
       <div className="px-4 pt-4 pb-7">
         {restaurantInfo.map((restaurant, _i) => (
@@ -63,33 +57,26 @@ const Menu = () => {
       </div>
       {/* END OF DETAILS DIV */}
 
-      <ul>
-        {/* <h1 className="py-3 px-6 text-xl font-bold">RECOMMENDED</h1> */}
+     <ul>
         {menuCategory?.map((category) => (
-          <div key={Math.random() * Infinity}>
+          <div id={category} key={category}>
             <h2 className="py-3 px-6 text-xl font-bold">
               {category?.charAt(0).toUpperCase() + category?.slice(1)} (
               {menu?.filter((item) => item.category === category).length})
             </h2>
             <ListComponent
               category={category}
-              // key={category}
               loading={isLoading}
               dataSource={menu?.filter((item) => item.category === category)}
               itemTitle={(item) => item.title}
               itemPrice={(item) => item.price}
-              itemDescription={(item) =>
-                item.description
-              }
+              itemDescription={(item) => item.description}
               itemImageSource={(item) => item.image}
               isLoading={isLoading}
             />
           </div>
         ))}
       </ul>
-
-      {/* MENU LIST ITEMS */}
-
       {/* CART BUTTON */}
       {cartItemCount > 0 ? <CartButton cartItemsCount={cartItemCount} /> : ""}
       {/* CART BUTTON */}
@@ -107,7 +94,6 @@ const Menu = () => {
                 }`,
               },
             ]}
-            // className={`border-[1px] border-gray-500 rounded-xl min-w-max px-2 py-0.5 mx-2`}
             className="p-2"
             onClick={() => handleCategoryClick(category)}
           >
@@ -115,7 +101,8 @@ const Menu = () => {
           </Anchor>
         ))}
       </div>
-    </div>
+    </div>}
+    </>
   )
 }
 
