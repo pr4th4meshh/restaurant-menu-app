@@ -17,8 +17,6 @@ interface RestaurantInfo {
   cuisine: string
 }
 
-type Category = string
-
 const Menu = () => {
   const { data: menu, isLoading } = useGetMenuQuery()
   const { data: menuCategory } = useGetMenuByCategoriesQuery()
@@ -32,76 +30,82 @@ const Menu = () => {
       cuisine: "North Indian",
     },
   ]
+
   const [, setSelectedCategory] = useState<string | undefined>()
 
-  const handleCategoryClick = (category: Category) => {
+  const handleCategoryClick = (category: string) => {
     setSelectedCategory(category)
   }
 
-  const cartItemCount = 4
+  const cartItemCount:number = 4
+
   return (
     <>
-    { isLoading ? <div className="h-[100vh] flex justify-center items-center"><Loading3QuartersOutlined className=" animate-spin text-5xl text-orange-500 " /></div> : <div className="h-[100vh]">
-      {/* RESTAURANT DETAILS DIV */}
-      <div className="px-4 pt-4 pb-7">
-        {restaurantInfo.map((restaurant, _i) => (
-          <InfoCard
-            key={_i}
-            restName={restaurant.restName}
-            ratings={restaurant.ratings}
-            noOfRatings={restaurant.noOfRatings}
-            basicAmountToSpend={restaurant.basicAmountToSpend}
-            cuisine={restaurant.cuisine}
-          />
-        ))}
-      </div>
-      {/* END OF DETAILS DIV */}
-
-     <ul>
-        {menuCategory?.map((category) => (
-          <div id={category} key={category}>
-            <h2 className="py-3 px-6 text-xl font-bold">
-              {category?.charAt(0).toUpperCase() + category?.slice(1)} (
-              {menu?.filter((item) => item.category === category).length})
-            </h2>
-            <ListComponent
-              category={category}
-              loading={isLoading}
-              dataSource={menu?.filter((item) => item.category === category)}
-              itemTitle={(item) => item.title}
-              itemPrice={(item) => item.price}
-              itemDescription={(item) => item.description}
-              itemImageSource={(item) => item.image}
-              isLoading={isLoading}
-            />
+      {isLoading ? (
+        <div className="h-[100vh] flex justify-center items-center">
+          <Loading3QuartersOutlined className="animate-spin text-5xl text-orange-500" />
+        </div>
+      ) : (
+        <div className="h-[100vh]">
+          {/* RESTAURANT DETAILS DIV */}
+          <div className="px-4 pt-4 pb-7">
+            {restaurantInfo.map((restaurant, _i) => (
+              <InfoCard
+                key={_i}
+                restName={restaurant.restName}
+                ratings={restaurant.ratings}
+                noOfRatings={restaurant.noOfRatings}
+                basicAmountToSpend={restaurant.basicAmountToSpend}
+                cuisine={restaurant.cuisine}
+              />
+            ))}
           </div>
-        ))}
-      </ul>
-      {/* CART BUTTON */}
-      {cartItemCount > 0 ? <CartButton cartItemsCount={cartItemCount} /> : ""}
-      {/* CART BUTTON */}
+          {/* END OF DETAILS DIV */}
 
-      <div className="h-[5vh] bg-white w-full bottom-0 overflow-x-scroll fixed flex flex-row items-center">
-        {menuCategory?.map((category, _i) => (
-          <Anchor
-            key={_i}
-            items={[
-              {
-                key: `${category}`,
-                href: `#${category}`,
-                title: `${
-                  category.charAt(0).toUpperCase() + category.slice(1)
-                }`,
-              },
-            ]}
-            className="p-2"
-            onClick={() => handleCategoryClick(category)}
-          >
-            {category.charAt(0).toUpperCase() + category.slice(1)}
-          </Anchor>
-        ))}
-      </div>
-    </div>}
+          <ul>
+            {menuCategory?.map((category: string) => (
+              <div id={category} key={category}>
+                <h2 className="py-3 px-6 text-xl font-bold">
+                  {category.charAt(0).toUpperCase() + category.slice(1)} (
+                  {menu?.filter((item: {category: string}) => item.category === category).length})
+                </h2>
+                <ListComponent
+                  category={category}
+                  loading={isLoading}
+                  dataSource={menu?.filter((item: {category: string}) => item.category === category) || []}
+                  itemTitle={(item) => item.title}
+                  itemPrice={(item: {price: number}) => item?.price}
+                  itemDescription={(item) => item.description}
+                  itemImageSource={(item) => item.image}
+                  isLoading={isLoading}
+                />
+              </div>
+            ))}
+          </ul>
+          {/* CART BUTTON */}
+          {cartItemCount > 0 && <CartButton />}
+          {/* CART BUTTON */}
+
+          <div className="h-[5vh] bg-white w-full bottom-0 overflow-x-scroll fixed flex flex-row items-center">
+            {menuCategory?.map((category: string) => (
+              <Anchor
+                key={category}
+                items={[
+                  {
+                    key: category,
+                    href: `#${category}`,
+                    title: category.charAt(0).toUpperCase() + category.slice(1),
+                  },
+                ]}
+                className="p-2"
+                onClick={() => handleCategoryClick(category)}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </Anchor>
+            ))}
+          </div>
+        </div>
+      )}
     </>
   )
 }

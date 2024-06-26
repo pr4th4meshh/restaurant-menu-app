@@ -9,7 +9,6 @@ const CartList = ({
   itemTitle,
   itemQuantity,
   itemTotalPrice,
-  itemId,
 }: any) => {
   const dispatch = useDispatch()
   const deleteItem = (itemId: any) => {

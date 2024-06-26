@@ -4,19 +4,27 @@ import ListItemDrawer from "../../lists/ListItemDrawer"
 import { truncateTitle, truncateDescription } from "../../../utils/globalUtils"
 
 interface ListComponentProps {
-  isLoading: boolean
-  dataSource: string[]
-  itemTitle: (item: string) => string
-  itemPrice: (item: string) => string
-  itemImageSource: (item: string) => string | undefined
-  itemDescription:(item: string) => string
+  isLoading: boolean;
+  category: string
+  loading: boolean
+  dataSource: ItemProps[];
+  itemTitle: (item: ItemProps) => string;
+  itemPrice: (item: ItemProps) => number;
+  itemImageSource: (item: ItemProps) => string | undefined;
+  itemDescription: (item: ItemProps) => string;
 }
 
 interface ItemProps {
   id: string
-  href: string
+  name: string
+  image: string
+  title: string
+  price: number
+  description: string
   category: string
+  href: string
 }
+
 
 const ListComponent = ({
   isLoading,
@@ -24,9 +32,9 @@ const ListComponent = ({
   itemTitle,
   itemPrice,
   itemImageSource,
-  itemDescription
+  itemDescription,
 }: ListComponentProps) => {
-  const [selectedItem, setSelectedItem] = useState(null)
+  const [selectedItem, setSelectedItem] = useState<ItemProps | null>(null)
 
   const handleItemClick = (item: ItemProps) => {
     setSelectedItem(item)

@@ -1,4 +1,4 @@
-import { LeftOutlined, SearchOutlined } from "@ant-design/icons"
+import { LeftOutlined } from "@ant-design/icons"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { totalCartItems } from "../../../utils/globalUtils"

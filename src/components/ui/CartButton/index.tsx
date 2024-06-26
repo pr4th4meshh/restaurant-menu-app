@@ -18,7 +18,7 @@ const CartButton = () => {
   return (
     <div>
       {cartItems.map((quantity: QuantityProps) =>
-        quantity.quantity > 0 ? (
+        quantity?.quantity > 0 ? (
           <Link to="/cart">
             <FloatButton
               key={quantity.quantity}
